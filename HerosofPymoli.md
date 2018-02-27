@@ -1,0 +1,1007 @@
+
+# Heroes of Pymoli Data Analysis
+
+
+```python
+import pandas as pd
+import numpy as np
+import os
+
+data = os.path.join("purchase_data.json")
+
+purchasedata = pd.read_json(data)
+purchasedata.head()
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Item ID</th>
+      <th>Item Name</th>
+      <th>Price</th>
+      <th>SN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>38</td>
+      <td>Male</td>
+      <td>165</td>
+      <td>Bone Crushing Silver Skewer</td>
+      <td>3.37</td>
+      <td>Aelalis34</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>21</td>
+      <td>Male</td>
+      <td>119</td>
+      <td>Stormbringer, Dark Blade of Ending Misery</td>
+      <td>2.32</td>
+      <td>Eolo46</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>34</td>
+      <td>Male</td>
+      <td>174</td>
+      <td>Primitive Blade</td>
+      <td>2.46</td>
+      <td>Assastnya25</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>21</td>
+      <td>Male</td>
+      <td>92</td>
+      <td>Final Critic</td>
+      <td>1.36</td>
+      <td>Pheusrical25</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>23</td>
+      <td>Male</td>
+      <td>63</td>
+      <td>Stormfury Mace</td>
+      <td>1.27</td>
+      <td>Aela59</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Player Count
+
+
+```python
+
+
+#Total Number of Players
+
+player_count = len(purchasedata["SN"].unique())
+
+player_count = pd.DataFrame([purchasedata['SN'].nunique()], columns = ['Total Players']) 
+
+player_count
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Total Players</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>573</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Unique Items
+
+
+```python
+# Number of Unique Items
+uniq_items = len(purchasedata["Item Name"].unique())  
+
+uniq_items = pd.DataFrame([purchasedata["Item Name"].nunique()], columns = ["Unique Items"])
+
+uniq_items
+
+
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unique Items</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>179</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Average Purchase Price
+
+
+```python
+# Average Purchase Price
+av_price = purchasedata["Price"].mean()
+
+av_price = pd.DataFrame([purchasedata["Price"].mean()], columns = ["Average Price"])
+
+av_price["Average Price"] = av_price["Average Price"].map("${:.2f}".format)
+
+av_price
+
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Average Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>$2.93</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Total Number of Purchases
+
+
+```python
+# Total Number of Purchases
+total_purch = purchasedata["Price"].count()
+
+total_purch = pd.DataFrame([purchasedata["Price"].count()], columns = ["Total Purchases"])
+
+total_purch
+
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Total Purchases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>780</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Total Revenue
+
+
+```python
+# Total Revenue
+total_rev = purchasedata["Price"].sum()
+
+total_rev = pd.DataFrame([purchasedata["Price"].sum()], columns = ["Total Revenue"])
+
+total_rev["Total Revenue"] = total_rev["Total Revenue"].map("${:.2f}".format)
+
+total_rev
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Total Revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>$2286.33</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Purchase Analysis
+
+
+```python
+pa_table = pd.DataFrame({"Number of Unique Items": uniq_items,
+                              "Total Revenue": total_rev,
+                              "Number of Purchases": total_purch,
+                              "Average Purchase Price": [av_price]})
+pa_table
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Average Purchase Price</th>
+      <th>Number of Purchases</th>
+      <th>Number of Unique Items</th>
+      <th>Total Revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Average Price
+0         $2.93</td>
+      <td>780</td>
+      <td>179</td>
+      <td>$2286.33</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Gender Demographics
+
+
+```python
+
+# Percentage and Count of Male Players/Female Players and Non_Disclosed
+male_female = pd.DataFrame(purchasedata["Gender"].value_counts()) 
+male_female
+
+male_female.columns=["Count"]
+male_female
+
+percent = (male_female["Count"]/780)*100
+male_female["Percentage"] = percent
+
+male_female["Percentage"] = male_female["Percentage"].map("{0:.2f}%".format)
+
+male_female.head()
+
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Count</th>
+      <th>Percentage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Male</th>
+      <td>633</td>
+      <td>81.15%</td>
+    </tr>
+    <tr>
+      <th>Female</th>
+      <td>136</td>
+      <td>17.44%</td>
+    </tr>
+    <tr>
+      <th>Other / Non-Disclosed</th>
+      <td>11</td>
+      <td>1.41%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Purchase Analysis (Gender)
+
+
+```python
+
+
+#Unique Count
+unique_count = purchasedata.groupby(["Gender"])["SN"].nunique()
+
+# Purchase Count by gender
+grouped_purch_c = purchasedata.groupby(["Gender"]).count()["Price"].rename("Purchase Count")
+
+# Average Purchase Price
+grouped_purch_a = purchasedata.groupby(["Gender"]).mean()["Price"].rename("Average Value")
+
+# Total Purchase Value
+grouped_purch_v = purchasedata.groupby(["Gender"]).sum()["Price"].rename("Purchase Value")
+
+
+# Normalized Totals
+normalized_total = grouped_purch_v /unique_count
+
+
+gender_pa_table = pd.DataFrame({"Normalized Total": normalized_total, 
+                            "Purchase Count": grouped_purch_c, 
+                            "Total Purchase Value": grouped_purch_v, 
+                            "Average Purchase Value": grouped_purch_a})
+
+gender_pa_table["Average Purchase Value"] = gender_pa_table["Average Purchase Value"].map("${:.2f}".format)
+gender_pa_table["Normalized Total"] = gender_pa_table["Normalized Total"].map("${:.2f}".format)
+gender_pa_table["Total Purchase Value"] = gender_pa_table["Total Purchase Value"].map("${:.2f}".format)
+
+
+gender_pa_table
+
+
+
+
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Average Purchase Value</th>
+      <th>Normalized Total</th>
+      <th>Purchase Count</th>
+      <th>Total Purchase Value</th>
+    </tr>
+    <tr>
+      <th>Gender</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Female</th>
+      <td>$2.82</td>
+      <td>$3.83</td>
+      <td>136</td>
+      <td>$382.91</td>
+    </tr>
+    <tr>
+      <th>Male</th>
+      <td>$2.95</td>
+      <td>$4.02</td>
+      <td>633</td>
+      <td>$1867.68</td>
+    </tr>
+    <tr>
+      <th>Other / Non-Disclosed</th>
+      <td>$3.25</td>
+      <td>$4.47</td>
+      <td>11</td>
+      <td>$35.74</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Age Demographics
+
+
+```python
+
+
+# The below each broken into bins of 4 years (i.e. &lt;10, 10-14, 15-19, etc.)
+bins = [0 ,10 ,15 ,20 ,25 ,30 ,35 ,40 ,45]
+Age_ranges = ['<10','10-14','15-19','20-24','25-29','30-34','35-39', "40+"]
+
+
+pd.cut(purchasedata["Age"], bins, labels= Age_ranges).head()
+
+purchasedata["Age Range"] = pd.cut(purchasedata["Age"],bins,labels=Age_ranges)
+purchasedata.head()
+
+group = purchasedata.groupby("Age Range")
+
+
+sn_count = purchasedata.groupby(["Age Range"]).count()["Age"]
+sn_count
+
+average_price =purchasedata.groupby(["Age Range"]).mean()["Price"]
+average_price
+
+total_purch_v =purchasedata.groupby(["Age Range"]).sum()["Price"]
+total_purch_v
+
+
+# Normalized Totals
+normalized_total = total_purch_v /sn_count
+
+table = pd.DataFrame({"Purchase Count": sn_count, 
+                      "Total Purchase Value": total_purch_v, 
+                      "Average Purchase Value": average_price,
+                      "Normalized Total": normalized_total})
+
+table["Average Purchase Value"] = table["Average Purchase Value"].map("${:.2f}".format)
+table["Normalized Total"] = table["Normalized Total"].map("${:.2f}".format)
+table["Total Purchase Value"] = table["Total Purchase Value"].map("${:.2f}".format)
+
+
+table.head()
+
+
+
+
+
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Average Purchase Value</th>
+      <th>Normalized Total</th>
+      <th>Purchase Count</th>
+      <th>Total Purchase Value</th>
+    </tr>
+    <tr>
+      <th>Age Range</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>&lt;10</th>
+      <td>$3.02</td>
+      <td>$3.02</td>
+      <td>32</td>
+      <td>$96.62</td>
+    </tr>
+    <tr>
+      <th>10-14</th>
+      <td>$2.87</td>
+      <td>$2.87</td>
+      <td>78</td>
+      <td>$224.15</td>
+    </tr>
+    <tr>
+      <th>15-19</th>
+      <td>$2.87</td>
+      <td>$2.87</td>
+      <td>184</td>
+      <td>$528.74</td>
+    </tr>
+    <tr>
+      <th>20-24</th>
+      <td>$2.96</td>
+      <td>$2.96</td>
+      <td>305</td>
+      <td>$902.61</td>
+    </tr>
+    <tr>
+      <th>25-29</th>
+      <td>$2.89</td>
+      <td>$2.89</td>
+      <td>76</td>
+      <td>$219.82</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Top Spenders
+
+
+```python
+
+# Identify the the top 5 spenders in the game by total purchase value, then list (in a table):
+
+# Purchase Count top 5
+grouped_top_c = purchasedata.groupby(["SN"]).count()["Price"].rename("Purchase Count")
+
+# Average Purchase Price
+grouped_top_a = purchasedata.groupby(["SN"]).mean()["Price"].rename("Average Value")
+
+# Total Purchase Value
+grouped_top_v = purchasedata.groupby(["SN"]).sum()["Price"].rename("Purchase Value")
+
+
+
+top_pa_table = pd.DataFrame({"Purchase Count": grouped_top_c, 
+                            "Total Purchase Value": grouped_top_v, 
+                            "Average Purchase Value": grouped_top_a})
+
+top_pa_table["Average Purchase Value"] = top_pa_table["Average Purchase Value"].map("${:.2f}".format)
+top_pa_table["Total Purchase Value"] = top_pa_table["Total Purchase Value"].map("${:.2f}".format)
+
+top_pa_table.sort_values("Total Purchase Value", ascending=False).head(5)
+
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Average Purchase Value</th>
+      <th>Purchase Count</th>
+      <th>Total Purchase Value</th>
+    </tr>
+    <tr>
+      <th>SN</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Qarwen67</th>
+      <td>$2.49</td>
+      <td>4</td>
+      <td>$9.97</td>
+    </tr>
+    <tr>
+      <th>Sondim43</th>
+      <td>$3.13</td>
+      <td>3</td>
+      <td>$9.38</td>
+    </tr>
+    <tr>
+      <th>Tillyrin30</th>
+      <td>$3.06</td>
+      <td>3</td>
+      <td>$9.19</td>
+    </tr>
+    <tr>
+      <th>Lisistaya47</th>
+      <td>$3.06</td>
+      <td>3</td>
+      <td>$9.19</td>
+    </tr>
+    <tr>
+      <th>Tyisriphos58</th>
+      <td>$4.59</td>
+      <td>2</td>
+      <td>$9.18</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Most Popular Items
+
+
+```python
+
+
+#Identify the 5 most popular items by purchase count, then list (in a table):
+
+#Item ID
+#Item Name
+#Purchase Count
+#Item Price
+#Total Purchase Value
+
+user_count = pd.DataFrame(purchasedata.groupby(["Item ID", "Item Name"])["Price"].count())
+user_total = pd.DataFrame(purchasedata.groupby(["Item ID", "Item Name"])["Price"].sum())
+user_average = pd.DataFrame(purchasedata.groupby(["Item ID", "Item Name"])["Price"].mean())
+
+
+
+
+table = pd.DataFrame({"Purchase Count": user_count ['Price'], 
+                     "Item Price": user_average ['Price'],
+                     "Total Purchase Value": user_total ['Price']})
+
+table["Item Price"] = table["Item Price"].map("${:.2f}".format)
+table["Total Purchase Value"] = table["Total Purchase Value"].map("${:.2f}".format)
+
+
+table= table.sort_values(["Purchase Count"], ascending=False)
+
+table[['Purchase Count','Item Price','Total Purchase Value']].head(5)
+
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Purchase Count</th>
+      <th>Item Price</th>
+      <th>Total Purchase Value</th>
+    </tr>
+    <tr>
+      <th>Item ID</th>
+      <th>Item Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>39</th>
+      <th>Betrayal, Whisper of Grieving Widows</th>
+      <td>11</td>
+      <td>$2.35</td>
+      <td>$25.85</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <th>Arcane Gem</th>
+      <td>11</td>
+      <td>$2.23</td>
+      <td>$24.53</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <th>Trickster</th>
+      <td>9</td>
+      <td>$2.07</td>
+      <td>$18.63</td>
+    </tr>
+    <tr>
+      <th>175</th>
+      <th>Woeful Adamantite Claymore</th>
+      <td>9</td>
+      <td>$1.24</td>
+      <td>$11.16</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <th>Serenity</th>
+      <td>9</td>
+      <td>$1.49</td>
+      <td>$13.41</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+# Most Profitable
+
+
+```python
+
+
+# popular Identify the 5 most profitable items by total purchase value, then list (in a table):
+
+
+# Item ID
+# Item Name
+# Purchase Count
+# Item Price
+#Total Purchase Value
+
+
+user_count = pd.DataFrame(purchasedata.groupby(["Item ID", "Item Name"])["Price"].count())
+user_total = pd.DataFrame(purchasedata.groupby(["Item ID", "Item Name"])["Price"].sum())
+user_average = pd.DataFrame(purchasedata.groupby(["Item ID", "Item Name"])["Price"].mean())
+
+table = pd.DataFrame({"Purchase Count": user_count ['Price'], 
+                     "Item Price": user_average ['Price'],
+                     "Total Purchase Value": user_total ['Price']})
+
+table["Item Price"] = table["Item Price"].map("${:.2f}".format)
+table["Total Purchase Value"] = table["Total Purchase Value"].map("${:.2f}".format)
+
+table= table.sort_values(["Total Purchase Value"], ascending=False)
+
+table[['Purchase Count','Item Price','Total Purchase Value']].head(5)
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Purchase Count</th>
+      <th>Item Price</th>
+      <th>Total Purchase Value</th>
+    </tr>
+    <tr>
+      <th>Item ID</th>
+      <th>Item Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>170</th>
+      <th>Shadowsteel</th>
+      <td>5</td>
+      <td>$1.98</td>
+      <td>$9.90</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <th>Souleater</th>
+      <td>3</td>
+      <td>$3.27</td>
+      <td>$9.81</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <th>Shadow Strike, Glory of Ending Hope</th>
+      <td>5</td>
+      <td>$1.93</td>
+      <td>$9.65</td>
+    </tr>
+    <tr>
+      <th>127</th>
+      <th>Heartseeker, Reaver of Souls</th>
+      <td>3</td>
+      <td>$3.21</td>
+      <td>$9.63</td>
+    </tr>
+    <tr>
+      <th>120</th>
+      <th>Agatha</th>
+      <td>5</td>
+      <td>$1.91</td>
+      <td>$9.55</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
